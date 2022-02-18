@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.speedQuiz.TextInputLayer.Players" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_margin">@dimen/main_margin</item>
+        <item name="boxStrokeColor">?attr/colorSecondaryVariant</item>
+        <item name="hintTextColor">?attr/colorSecondaryVariant</item>
+        <item name="textFillColor">?attr/colorSecondaryVariant</item>
+
+    </style>
+
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SpeedQuiz</string>
+
+    <string name="main_title">Speed Quiz</string>
+    <string name="main_button_play">Jouer !</string>
+    <string name="main_text_player1">Joueur 1</string>
+    <string name="main_text_player2">Joueur 2</string>
+
+    <!-- Menu main -->
+    <string name="action_questions">Questions</string>
+    <string name="action_settings">Paramètres</string>
+</resources>

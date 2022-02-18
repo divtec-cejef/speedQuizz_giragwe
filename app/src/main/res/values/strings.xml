@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SpeedQuiz</string>
+
+    <string name="main_title">Speed Quiz</string>
+    <string name="main_button_play">Play !</string>
+    <string name="main_text_player1">Player 1</string>
+    <string name="main_text_player2">Player 2</string>
+
+    <!-- Menu main -->
+    <string name="action_questions">Questions</string>
+    <string name="action_settings">Settings</string>
 </resources>

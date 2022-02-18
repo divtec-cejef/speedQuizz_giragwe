@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_game"
+    android:screenOrientation="landscape">
+
+    <Button
+        android:id="@+id/buttonResponseJ1"
+        android:layout_width="400dp"
+        android:layout_height="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"
+        android:rotation="180"
+        >
+
+    </Button>
+
+    <TextView
+        android:id="@+id/ptsJ1"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:rotation="180"
+        android:text="0"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonResponseJ1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/questionJ1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="20dp"
+        android:rotation="180"
+        android:text="question"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/buttonResponseJ1"
+        tools:layout_editor_absoluteX="20dp"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerInsetEnd="16dp"
+        app:dividerInsetStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.divider.MaterialDivider>
+
+    <TextView
+        android:id="@+id/questionJ2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="20dp"
+        android:text="question"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonResponseJ2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/ptsJ2"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonResponseJ2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/buttonResponseJ2"
+        android:layout_width="400dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        >
+
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
