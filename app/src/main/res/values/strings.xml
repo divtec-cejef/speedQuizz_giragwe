@@ -9,4 +9,10 @@
     <!-- Menu main -->
     <string name="action_questions">Questions</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Result -->
+    <string name="result_title">The Winner is...</string>
+    <string name="result_points">With </string>
+    <string name="result_button_quit">Quit</string>
+    <string name="result_button_replay">Replay</string>
 </resources>

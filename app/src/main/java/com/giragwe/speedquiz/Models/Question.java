@@ -1,19 +1,21 @@
 package com.giragwe.speedquiz.Models;
 
+import android.database.Cursor;
+
 public class Question {
     private String question;
-    private Boolean reponse;
+    private int reponse;
 
-    public Question(String question, Boolean reponse) {
-        this.question = question;
-        this.reponse = reponse;
+    public Question(Cursor cursor){
+        this.question = cursor.getString(cursor.getColumnIndexOrThrow("question"));
+        this.reponse = cursor.getInt(cursor.getColumnIndexOrThrow("reponse"));
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public Boolean getReponse() {
+    public int getReponse() {
         return reponse;
     }
 }

@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpeedQuiz">
         <activity
+            android:name=".activity_result"
+            android:exported="false" />
+        <activity
             android:name=".activityParams"
             android:exported="false" />
         <activity
             android:name=".activity_game"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"

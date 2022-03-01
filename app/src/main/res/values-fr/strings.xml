@@ -10,4 +10,10 @@
     <!-- Menu main -->
     <string name="action_questions">Questions</string>
     <string name="action_settings">Paramètres</string>
+
+    <!-- Result -->
+    <string name="result_title">Le gagnant est...</string>
+    <string name="result_points">Avec </string>
+    <string name="result_button_quit">Quitter</string>
+    <string name="result_button_replay">Rejouer</string>
 </resources>

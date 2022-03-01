@@ -10,26 +10,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.Context;
+
+import com.giragwe.speedquiz.Controllers.QuestionManager;
+import com.giragwe.speedquiz.Models.Question;
 
 import java.util.ArrayList;
-
-class Question {
-    private String question;
-    private Boolean reponse;
-
-    public Question(String question, Boolean reponse) {
-        this.question = question;
-        this.reponse = reponse;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public Boolean getReponse() {
-        return reponse;
-    }
-}
 
 enum Joueurs {
     JOUEUR1,
@@ -46,7 +32,7 @@ public class activity_game extends AppCompatActivity {
     private TextView TX_ptsJ1;
     private TextView TX_ptsJ2;
 
-    ArrayList<Question> questionsList = new ArrayList<>();
+    QuestionManager manager;
 
     Question questionEnCours;
 
@@ -73,10 +59,7 @@ public class activity_game extends AppCompatActivity {
         BT_ReponseJoueur1.setBackgroundColor(Color.GRAY);
         BT_ReponseJoueur2.setBackgroundColor(Color.GRAY);
 
-        questionsList.add(new Question("Le Java est une language de programmation", true));
-        questionsList.add(new Question("Le Javascript est un cousin du Java", false));
-        questionsList.add(new Question("Le CSS est un language de programmation", false));
-        questionsList.add(new Question("Le HTML est un langage de balisage", true));
+        manager = new QuestionManager(this);
     }
 
     @Override
@@ -90,7 +73,7 @@ public class activity_game extends AppCompatActivity {
         BT_ReponseJoueur1.setText(joueur1);
         BT_ReponseJoueur2.setText(joueur2);
 
-        questionEnCours = questionsList.get(0);
+        questionEnCours = manager.getRandomQuestion();
         TX_QuestionJ1.setText(questionEnCours.getQuestion());
         TX_QuestionJ2.setText(questionEnCours.getQuestion());
 
@@ -107,7 +90,6 @@ public class activity_game extends AppCompatActivity {
                 repondre(Joueurs.JOUEUR2);
             }
         });
-
     }
 
     private void repondre(Joueurs joueur) {
@@ -115,7 +97,7 @@ public class activity_game extends AppCompatActivity {
         BT_ReponseJoueur2.setBackgroundColor(Color.GRAY);
         switch (joueur) {
             case JOUEUR1:
-                if (questionEnCours.getReponse()) {
+                if (questionEnCours.getReponse() == 1) {
                     BT_ReponseJoueur1.setBackgroundColor(Color.GREEN);
                     ptsJ1++;
                 } else {
@@ -123,7 +105,7 @@ public class activity_game extends AppCompatActivity {
                 }
                 break;
             case JOUEUR2:
-                if (questionEnCours.getReponse()) {
+                if (questionEnCours.getReponse() == 1) {
                     BT_ReponseJoueur2.setBackgroundColor(Color.GREEN);
                     ptsJ2++;
                 } else {
@@ -138,16 +120,22 @@ public class activity_game extends AppCompatActivity {
     }
 
     private void questionSuivante() {
-        int indice = questionsList.indexOf(questionEnCours);
-
-        if(indice == questionsList.size() - 1) {
-            indice = 0;
+        if (manager.getQuestionsList().size() > 0) {
+            questionEnCours = manager.getRandomQuestion();
+            TX_QuestionJ1.setText(questionEnCours.getQuestion());
+            TX_QuestionJ2.setText(questionEnCours.getQuestion());
         } else {
-            indice++;
+            Intent intent = new Intent(activity_game.this, activity_result.class);
+            intent.putExtra("gagnant", getWinner());
+            activity_game.this.startActivity(intent);
         }
+    }
 
-        questionEnCours = questionsList.get(indice);
-        TX_QuestionJ1.setText(questionEnCours.getQuestion());
-        TX_QuestionJ2.setText(questionEnCours.getQuestion());
+    private String getWinner() {
+        if(ptsJ1 > ptsJ2) {
+            return BT_ReponseJoueur1.getText().toString();
+        } else {
+            return BT_ReponseJoueur2.getText().toString();
+        }
     }
 }
