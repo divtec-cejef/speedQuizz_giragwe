@@ -26,11 +26,10 @@ public class SpeedQuizSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(sqlCreateDatatableQuiz);
 
         //insertions de valeurs dans la base de donnée
-        db.execSQL("INSERT INTO quiz VALUES(1,\"Prêt ?\", 3)");
-        db.execSQL("INSERT INTO quiz VALUES(2,\"Le Java est une language de programmation\", 1)");
-        db.execSQL("INSERT INTO quiz VALUES(3,\"Le Javascript est un cousin du Java\", 0)");
-        db.execSQL("INSERT INTO quiz VALUES(4,\"Le CSS est un language de programmation\", 0)");
-        db.execSQL("INSERT INTO quiz VALUES(5,\"Le HTML est un langage de balisage\", 1)");
+        db.execSQL("INSERT INTO quiz VALUES(1,\"Le Java est une language de programmation\", 1)");
+        db.execSQL("INSERT INTO quiz VALUES(2,\"Le Javascript est un cousin du Java\", 0)");
+        db.execSQL("INSERT INTO quiz VALUES(3,\"Le CSS est un language de programmation\", 0)");
+        db.execSQL("INSERT INTO quiz VALUES(4,\"Le HTML est un langage de balisage\", 1)");
     }
 
     @Override

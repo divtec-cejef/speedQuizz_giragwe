@@ -7,12 +7,10 @@
     android:padding="50dp"
     tools:context=".activity_result">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,35 +19,68 @@
             android:id="@+id/result_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/result_title"
-            android:textSize="20sp"
             android:textAlignment="center"
+            android:textSize="35sp"
+            android:textStyle="bold"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
-            android:id="@+id/result_winner_name"
+            android:id="@+id/result_nom_vainqueur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="35sp"
+            android:paddingBottom="100dp"
             android:textAlignment="center"
+            android:textSize="20sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/result_title" />
 
-        <TextView
-            android:id="@+id/result_winner_points"
+
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/result_points"
-            android:textSize="15sp"
-            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/result_winner_name" />
+            app:layout_constraintTop_toBottomOf="@+id/result_nom_vainqueur"
+            android:stretchColumns="1">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/result_nom_J1"
+                    android:gravity="start"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/result_pts_J1"
+                    android:gravity="end"
+                    android:padding="5dp"
+                    />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/result_nom_J2"
+                    android:gravity="start"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/result_pts_J2"
+                    android:gravity="end"
+                    android:padding="5dp"
+                    />
+            </TableRow>
+
+        </TableLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

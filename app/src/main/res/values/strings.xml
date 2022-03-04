@@ -10,9 +10,13 @@
     <string name="action_questions">Questions</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Game -->
+    <string name="game_question">Press if the question is true !</string>
+
     <!-- Result -->
-    <string name="result_title">The Winner is...</string>
-    <string name="result_points">With </string>
+    <string name="result_title_vainqueur">- Winner -</string>
+    <string name="result_title_egalite">- Draw -</string>
     <string name="result_button_quit">Quit</string>
     <string name="result_button_replay">Replay</string>
+    <string name="deddede">idijeid</string>
 </resources>

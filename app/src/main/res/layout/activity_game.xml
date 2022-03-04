@@ -40,7 +40,7 @@
 
         android:layout_margin="20dp"
         android:rotation="180"
-        android:text="question"
+        android:text="@string/game_question"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@id/buttonResponseJ1"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
 
         android:layout_margin="20dp"
-        android:text="question"
+        android:text="@string/game_question"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/buttonResponseJ2"

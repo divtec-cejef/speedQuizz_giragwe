@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,6 +43,8 @@ public class activity_game extends AppCompatActivity {
     //Variable qui contiendra la question en cours
     Question questionEnCours;
 
+    Runnable questionRunnable = null;
+
     //Variables pour stocker le nom des joueurs et leurs nombre de points
     String J1 = "";
     String J2 = "";
@@ -50,6 +53,7 @@ public class activity_game extends AppCompatActivity {
 
     /**
      * Création de l'acrivité
+     *
      * @param savedInstanceState
      */
     @Override
@@ -74,9 +78,16 @@ public class activity_game extends AppCompatActivity {
         //Fixe la couleur des boutons
         BT_ReponseJoueur1.setBackgroundColor(Color.GRAY);
         BT_ReponseJoueur2.setBackgroundColor(Color.GRAY);
+        BT_ReponseJoueur1.setEnabled(false);
+        BT_ReponseJoueur2.setEnabled(false);
 
         //remplis l'instance de QuestionManager
         manager = new QuestionManager(this);
+
+        //récuperation des nom des joueurs depuis l'activité qui à lancé cette activité
+        Intent intent = getIntent();
+        J1 = intent.getStringExtra("joueur1");
+        J2 = intent.getStringExtra("joueur2");
     }
 
 
@@ -87,19 +98,56 @@ public class activity_game extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //récuperation des nom des joueurs depuis l'activité qui à lancé cette activité
-        Intent intent = getIntent();
-        J1 = intent.getStringExtra("joueur1");
-        J2 = intent.getStringExtra("joueur2");
+        //Handler pour le défilement automatique des questions
+        Handler handler = new Handler();
+
+        questionRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (manager.getQuestionsList().size() == 0) {
+
+                    handler.removeCallbacks(this);
+
+                    Intent intent = new Intent(activity_game.this, activity_result.class);
+
+                    //Envoie les infos des joueurs à l'activité résultat
+                    intent.putExtra("nomJ1", J1);
+                    intent.putExtra("nomJ2", J2);
+                    intent.putExtra("ptsJ1", Integer.toString(ptsJ1));
+                    intent.putExtra("ptsJ2", Integer.toString(ptsJ2));
+
+                    //envoie le résulats de la partie à l'activité résultat
+                    if (ptsJ1 > ptsJ2) {
+                        intent.putExtra("gagnant", "J1");
+                    } else if (ptsJ1 < ptsJ2){
+                        intent.putExtra("gagnant", "J2");
+                    } else {
+                        intent.putExtra("gagnant", "egal");
+                    }
+                    activity_game.this.startActivity(intent);
+                } else {
+                    //réinitialise les boutons
+                    BT_ReponseJoueur1.setEnabled(true);
+                    BT_ReponseJoueur2.setEnabled(true);
+                    BT_ReponseJoueur1.setBackgroundColor(Color.GRAY);
+                    BT_ReponseJoueur2.setBackgroundColor(Color.GRAY);
+
+                    //récupère une question au hasard et l'affiche
+                    questionEnCours = manager.getRandomQuestion();
+                    TX_QuestionJ1.setText(questionEnCours.getQuestion());
+                    TX_QuestionJ2.setText(questionEnCours.getQuestion());
+
+                    //temps entre les questions
+                    handler.postDelayed(this, 4000);
+                }
+            }
+        };
+        handler.postDelayed(questionRunnable, 3000);
+
 
         //Affiche le nom des joueur sur les boutons
         BT_ReponseJoueur1.setText(J1);
         BT_ReponseJoueur2.setText(J2);
-
-        //Récuperation de la première question (question de préparation) et l'affiche
-        questionEnCours = manager.getFirstQuestion();
-        TX_QuestionJ1.setText(questionEnCours.getQuestion());
-        TX_QuestionJ2.setText(questionEnCours.getQuestion());
 
         //Faire répondre le joueur 1 au clic de son bouton de réponse
         BT_ReponseJoueur1.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +168,7 @@ public class activity_game extends AppCompatActivity {
 
     /**
      * Faire répondre un Joueur
+     *
      * @param joueur à faire répondre
      */
     private void repondre(Joueurs joueur) {
@@ -139,7 +188,9 @@ public class activity_game extends AppCompatActivity {
                 //La réponse était : faux
                 else if (questionEnCours.getReponse() == 0) {
                     BT_ReponseJoueur1.setBackgroundColor(Color.RED);
-                    ptsJ1--;
+                    if (ptsJ1 > 0) {
+                        ptsJ1--;
+                    }
                 }
                 break;
 
@@ -154,7 +205,9 @@ public class activity_game extends AppCompatActivity {
                 //La réponse était : faux
                 else if (questionEnCours.getReponse() == 0) {
                     BT_ReponseJoueur2.setBackgroundColor(Color.RED);
-                    ptsJ2--;
+                    if (ptsJ2 > 0) {
+                        ptsJ2--;
+                    }
                 }
                 break;
         }
@@ -163,39 +216,7 @@ public class activity_game extends AppCompatActivity {
         TX_ptsJ1.setText(Integer.toString(ptsJ1));
         TX_ptsJ2.setText(Integer.toString(ptsJ2));
 
-        //passe à la question suivante
-        questionSuivante();
-    }
-
-    /**
-     * Change de question pour afficher la suivante
-     */
-    private void questionSuivante() {
-        //Si il y a encore des question à afficher
-        if (manager.getQuestionsList().size() > 0) {
-            //récupère une question au hasard et l'affiche
-            questionEnCours = manager.getRandomQuestion();
-            TX_QuestionJ1.setText(questionEnCours.getQuestion());
-            TX_QuestionJ2.setText(questionEnCours.getQuestion());
-        }
-
-        //Sinon
-        else {
-            //Affiche l'activité Resultat en lui passant en paramètre :
-            // - Le nom du joueur gagnant
-            // - Le nombre de points du joueur gagnant
-            // - Le nom du joueur perdant
-            Intent intent = new Intent(activity_game.this, activity_result.class);
-            if(ptsJ1 > ptsJ2) {
-                intent.putExtra("nomGagnant", J1);
-                intent.putExtra("pointsGagnant", Integer.toString(ptsJ1));
-                intent.putExtra("nomPerdant", J2);
-            } else {
-                intent.putExtra("nomGagnant", J2);
-                intent.putExtra("pointsGagnant", Integer.toString(ptsJ2));
-                intent.putExtra("nomPerdant", J1);
-            }
-            activity_game.this.startActivity(intent);
-        }
+        BT_ReponseJoueur1.setEnabled(false);
+        BT_ReponseJoueur2.setEnabled(false);
     }
 }
