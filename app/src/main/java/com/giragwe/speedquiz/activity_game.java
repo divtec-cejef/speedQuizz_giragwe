@@ -36,6 +36,8 @@ public class activity_game extends AppCompatActivity {
 
     Question questionEnCours;
 
+    String J1 = "";
+    String J2 = "";
     int ptsJ1 = 0;
     int ptsJ2 = 0;
 
@@ -62,18 +64,20 @@ public class activity_game extends AppCompatActivity {
         manager = new QuestionManager(this);
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
 
         Intent intent = getIntent();
-        String joueur1 = intent.getStringExtra("joueur1");
-        String joueur2 = intent.getStringExtra("joueur2");
+        J1 = intent.getStringExtra("joueur1");
+        J2 = intent.getStringExtra("joueur2");
 
-        BT_ReponseJoueur1.setText(joueur1);
-        BT_ReponseJoueur2.setText(joueur2);
+        BT_ReponseJoueur1.setText(J1);
+        BT_ReponseJoueur2.setText(J2);
 
-        questionEnCours = manager.getRandomQuestion();
+        questionEnCours = manager.getFirstQuestion();
         TX_QuestionJ1.setText(questionEnCours.getQuestion());
         TX_QuestionJ2.setText(questionEnCours.getQuestion());
 
@@ -100,7 +104,7 @@ public class activity_game extends AppCompatActivity {
                 if (questionEnCours.getReponse() == 1) {
                     BT_ReponseJoueur1.setBackgroundColor(Color.GREEN);
                     ptsJ1++;
-                } else {
+                } else if (questionEnCours.getReponse() == 0) {
                     BT_ReponseJoueur1.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -108,7 +112,7 @@ public class activity_game extends AppCompatActivity {
                 if (questionEnCours.getReponse() == 1) {
                     BT_ReponseJoueur2.setBackgroundColor(Color.GREEN);
                     ptsJ2++;
-                } else {
+                } else if (questionEnCours.getReponse() == 0) {
                     BT_ReponseJoueur2.setBackgroundColor(Color.RED);
                 }
                 break;
@@ -126,16 +130,16 @@ public class activity_game extends AppCompatActivity {
             TX_QuestionJ2.setText(questionEnCours.getQuestion());
         } else {
             Intent intent = new Intent(activity_game.this, activity_result.class);
-            intent.putExtra("gagnant", getWinner());
+            if(ptsJ1 > ptsJ2) {
+                intent.putExtra("nomGagnant", J1);
+                intent.putExtra("pointsGagnant", Integer.toString(ptsJ1));
+                intent.putExtra("nomPerdant", J2);
+            } else {
+                intent.putExtra("nomGagnant", J2);
+                intent.putExtra("pointsGagnant", Integer.toString(ptsJ2));
+                intent.putExtra("nomPerdant", J1);
+            }
             activity_game.this.startActivity(intent);
-        }
-    }
-
-    private String getWinner() {
-        if(ptsJ1 > ptsJ2) {
-            return BT_ReponseJoueur1.getText().toString();
-        } else {
-            return BT_ReponseJoueur2.getText().toString();
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuestionManager {
-    ArrayList<Question> questionsList = new ArrayList<>();
+    ArrayList<Question> questionsList;
 
     public QuestionManager(Context context) {
         questionsList = initQuestionList(context);
@@ -45,6 +45,12 @@ public class QuestionManager {
         questionsList.remove(index);
 
         return question;
+    }
+
+    public Question getFirstQuestion() {
+        Question question = questionsList.get(0);
+        questionsList.remove(0);
+        return  question;
     }
 
     private int getRandomIndex(ArrayList<Question> questionList) {
