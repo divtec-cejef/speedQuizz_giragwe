@@ -39,20 +39,37 @@ public class QuestionManager {
         return listQuestion;
     }
 
+    /**
+     * Renvoie une question au hasard dans la liste
+     * @return une question au hasard
+     */
     public Question getRandomQuestion() {
         int index = getRandomIndex(questionsList);
         Question question = questionsList.get(index);
+
+        //Supprime la question de la liste afin que la question ne soit pas posée 2 fois
         questionsList.remove(index);
 
         return question;
     }
 
+    /**
+     * Renvoie la première question de la liste
+     * @return la première question
+     */
     public Question getFirstQuestion() {
         Question question = questionsList.get(0);
+
+        //Supprime la question de la liste afin que la question ne soit pas posée 2 fois
         questionsList.remove(0);
         return  question;
     }
 
+    /**
+     * Donne un index d'un élément de la liste au hasard
+     * @param questionList liste de question
+     * @return index au hasard d'un élément de la liste
+     */
     private int getRandomIndex(ArrayList<Question> questionList) {
         Random random = new Random();
         return random.nextInt(questionList.size());
